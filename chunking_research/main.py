@@ -137,7 +137,7 @@ def main():
 
     print("加载文档...")
     # 加载文档
-    documents = SimpleDirectoryReader("data").load_data()
+    documents = SimpleDirectoryReader("../data").load_data()
     if not documents:
         print("警告：未找到文档，请确保data目录中有文件")
         return
