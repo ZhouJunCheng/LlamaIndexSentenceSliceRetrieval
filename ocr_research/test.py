@@ -1,7 +1,7 @@
 from paddleocr import PaddleOCR
 
 # 初始化PaddleOCR
-ocr = PaddleOCR()
+ocr = PaddleOCR(det_db_thresh=0.1)
 
 # ocr = PaddleOCR(
 #     text_detection_model_name="PP-OCRv5_server_det",
@@ -17,27 +17,13 @@ import os
 current_dir = os.path.dirname(os.path.abspath(__file__))
 # 构建图像的绝对路径
 image_path = os.path.join(current_dir, "general_ocr_002.png")
-# 检查文件是否存在
-if not os.path.exists(image_path):
-    print(f"警告：图像文件 {image_path} 不存在！")
-    # 尝试在images目录下查找
-    image_path = os.path.join(current_dir, "images", "general_ocr_002.png")
-    if not os.path.exists(image_path):
-        print(f"警告：图像文件 {image_path} 也不存在！")
-        # 列出images目录下的文件
-        images_dir = os.path.join(current_dir, "images")
-        if os.path.exists(images_dir):
-            print(f"images目录下的文件：{os.listdir(images_dir)}")
-            # 使用第一个图像文件
-            files = os.listdir(images_dir)
-            if files:
-                image_path = os.path.join(images_dir, files[0])
-                print(f"将使用第一个可用的图像文件：{image_path}")
+
 
 # 使用OCR识别图像
 print(f"正在处理图像：{image_path}")
-result = ocr.ocr(image_path, cls=False)  # 使用ocr方法而不是predict
-
+result = ocr.ocr(image_path)  # 使用ocr方法而不是predict
+print(result)
+print("="*50)
 # 处理结果
 if result:
     for idx, line in enumerate(result):
